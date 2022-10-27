@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% set active_page = "account-login" %}
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+    <form method=post action="{{ url_for('auth.login') }}">
+        {{ form.csrf_token }}
+        <dl>
+            {{ render_field(form.email, class="form-control") }}
+            {{ render_field(form.password, class="form-control") }}
+            {{ render_field(form.remember_me, class="form-check-input") }}
+        </dl>
+        <p><button type="submit" id="btn-login" class="btn btn-primary">Login</button></p>
+    </form>
+{% endblock %}

@@ -1,0 +1,4 @@
+graft my_app/static
+graft my_app/templates
+global-exclude *.pyc
+exclude test*/*.py

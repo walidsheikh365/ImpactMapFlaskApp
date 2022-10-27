@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDropdown" aria-controls="navbarDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse"></div>
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarDropdown">
+            <style>
+                #navbar:hover {
+                    background-color: rgb(188, 188, 188);
+                    color: black;
+                }
+                .sr-only {
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0,0,0,0);
+                    border: 0;
+                }          
+                /* code used to change background color */
+                .active>a {
+                    background-color: rgb(233, 233, 240);
+                    color: black;
+                    font-weight: 500;
+                }
+            </style>
+            <ul class="navbar-nav mr-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item {{ 'active' if active_page == 'home' else '' }}">
+                    <a class="nav-link" href="{{ url_for('main.index') }}">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" id="nav-dashboard" href="/dashboard/">Dashboard</a>
+                </li>
+                {% if current_user.is_anonymous %}
+                    <li class="nav-item dropdown {{ 'active' if active_page != 'home' else '' }}">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+                            <li class="dropdown-item"><a class="nav-link {{ 'active' if active_page == 'account-login' else '' }}" id="nav-login" href="{{ url_for('auth.login') }}">Login</a></li>
+                            <li class="dropdown-divider"><hr></li>
+                            <li class="dropdown-item"><a class="nav-link {{ 'active' if active_page == 'account-signup' else '' }}" id="nav-signup" href="{{ url_for('auth.signup') }}">Sign up</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown {{ 'active' if active_page != 'home' else '' }}">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+                            {% if current_user.verified %}
+                            <li class="dropdown-item"><a class="nav-link {{ 'active' if active_page == 'account-profile' else '' }}" id="nav-profile" href="{{ url_for('auth.profile', id=current_user.id) }}">Profile</a></li>
+                            {% else %}
+                            <li class="dropdown-item"><a class="nav-link {{ 'active' if active_page == 'account-profile' else '' }}" id="nav-profile" href="{{ url_for('auth.unconfirmed', id=current_user.id) }}">Profile</a></li>
+                            {% endif %}
+                            <li class="dropdown-divider"><hr></li>
+                            <li class="dropdown-item"><a class="nav-link" id="nav-logout" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                            <li class="dropdown-item"><a class="nav-link {{ 'active' if active_page == 'account-delete' else '' }}" id="nav-delete-account" href="{{ url_for('auth.delete_account', id=current_user.id) }}">Delete Account</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+            <script>
+                /* script used to change active condition for current page on display */
+                $(document).ready(function () {
+                    $('ul.navbar-nav > li')
+                            .click(function (e) {
+                        $('ul.navbar-nav > li')
+                            .removeClass('active');
+                        $(this).addClass('active');
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</nav>

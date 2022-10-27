@@ -1,0 +1,6 @@
+[run]
+omit =
+    # omit dash testing
+    flask_app/dash_app/*
+    # omit manual tests
+    flask_app/tests/browser/*

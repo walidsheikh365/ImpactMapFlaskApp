@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% set active_page = "home" %}
+{% block content %}
+    <script>$('homepage-link').toggleClass('active')</script>
+    <style>
+    .wrap {
+        align-self: flex-end;
+        display: flex;
+        justify-content: flex-end;
+    }
+    </style>
+    <h1>{{ title }}</h1>
+    <hr>
+    <p>Welcome to Impact Map, a revolutionary app containing eye-opening meteorite visualisations!</p>
+    <p>Here you will find our own dashboard, which gathers official meteorite data from NASA 
+        in order to illustrate scientific and geographic patterns in a new light.</p>
+    <p>You can also find the option to register an account, which we strongly recommend in order to
+        stay upto date with new and exciting visuals.*</p>
+    <p>Go ahead, take a look. We hope you enjoy your stay!</p>
+    <hr>
+    <div class="wrap">
+        <span><hr>*New features coming soon...<hr></span>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% set active_page = "account-profile" %}
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+    <h1>Account Profile</h1>
+    <hr>
+    <b>First Name</b>
+    <p>{{ user.first_name }}</p>
+    <hr>
+    <b>Last Name</b>
+    <p>{{ user.last_name }}</p>
+    <hr>
+    <b>Date Registered</b>
+    <p>{{ user.registered_on }}</p>
+    <hr>
+    <b>Email</b>
+    <p>{{ user.email }}</p>
+    <hr>
+    <b>Change Password</b>
+    <form method=post action="{{ url_for('auth.profile', id=user.id) }}">
+        {{ form.csrf_token }}
+        <dl>
+            {{ render_field(form.current_password, class="form-control") }}
+            {{ render_field(form.new_password, class="form-control") }}
+        </dl>
+        <p><button type="submit" id="btn-password" class="btn btn-primary">Apply</button></p>
+    </form>
+    <hr>
+{% endblock %}

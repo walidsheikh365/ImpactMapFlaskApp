@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% set active_page = "account-delete" %}
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+    <form method=post action="{{ url_for('auth.delete_account', id=current_user.id) }}">
+      {{ form.csrf_token }}
+      <p>There's no way back after this. Are you sure you want to delete your account?</p>
+      <p><button type="submit" id="btn-delete-account" class="btn btn-danger">Permanently Delete My Account</button></p>
+    </form>
+{% endblock %}

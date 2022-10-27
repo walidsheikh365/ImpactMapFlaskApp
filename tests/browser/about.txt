@@ -1,0 +1,21 @@
+Due to the following error, browser tests haven't been able to run with Github Actions.
+
+'AttributeError: Can't pickle local object 'Flask.__init__.<locals>.<lambda>'
+
+As such, the test was performed manually with the flask app running.
+See video of the tests in README_assets/Testing_Proof or directly
+from the README file.
+
+Below is the code used alternatively with Github Actions.
+
+
+@pytest.fixture(scope='class')
+def run_app(app):
+    """
+    Fixture to run the Flask app for Selenium browser tests
+    """
+    multiprocessing.set_start_method("spawn", force=True)  # Needed in Python 3.8 and later
+    process = multiprocessing.Process(target=app.run, args=())
+    process.start()
+    yield process
+    process.terminate()
